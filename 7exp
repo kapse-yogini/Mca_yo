@@ -1,0 +1,101 @@
+Exp7: ADC
+
+#include<P18F4520.h>
+
+#pragma config OSC-HS
+
+#pragma config PWRT-OFF
+
+#pragma config WDT-OFF
+
+#pragma config DEBUG-OFF,
+
+LVP-OFF
+
+void lcdcmd (unsigned char value):
+
+void leddata (unsigned char value); 
+void madelay (unsigned int itime);
+
+#define idata PORTD
+
+#define a PORTCbits.RC3
+ #define rw PORTCbits.RC4
+
+#define en PORTCbits. RC5
+
+void main(void)
+
+unsigned int i, dr
+
+unsigned char val,
+
+temp [3];
+
+TRISD=0;
+
+PORTD =0;
+TRISC=0x00;
+
+ADCONO 0X01: ADCONI = 0X0E;
+
+ADCON2-0610001010;
+
+madelay(15): lcdcmd(0x38)
+
+msdelay (15)
+
+1cdcmd(0x0E);
+
+msdelay (15); ledemd (0x01)
+
+msdelay(15)
+
+lcdcmd(0x06);
+
+msdelay(15);
+
+while(1)
+{
+
+1cdcmd(0x8117 madelay (20)
+
+ADCONObits.GO- 1;
+while
+
+(ADCONUDits. DONE ==1);
+
+temp [0]= (ADRESH & 0x0f); emp[1]= (ADRESL & 0xf0)>>4;
+
+temp [2]= (ADRESL & 0x0f);
+for (d=0; d<3; d++)
+
+if (temp[d] < 10) temp[d] = temp[d] + 0 * 30 ; else temp [d] = temp[d]+0x37; lcddata (temp [d]);
+
+msdelay (15);
+
+msdelay(10);
+
+}
+
+void lcdcmd (unsigned char value)
+
+( 1data-value;
+
+rs = 0 ; IW=0;
+
+en = 1 ; madelay (1):
+
+en = 0 ;
+
+void lcddata (unsigned char value)
+
+Idata=value;
+
+rs = 1 ; rw = 0 ;
+
+en = 1 ; msdelay (1); en = 0
+
+void msdelay (unsigned int itime)
+
+int i, j for ( i = 0 ; i<itime;i++) for ( j = 0; j < 135 ;j++) ;
